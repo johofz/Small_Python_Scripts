@@ -23,6 +23,5 @@ if target:
     for pdf in pdfs:
         merger.append(pdf)
 
-    merger.setPageLayout('/TwoColumnLeft')
     merger.write(target)
     merger.close()
