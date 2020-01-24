@@ -2,7 +2,7 @@ import time
 import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.messagebox as msg
-from winsound import PlaySound, SND_ALIAS
+from winsound import PlaySound, SND_FILENAME, SND_ALIAS
 
 
 class pomodoroApp():
@@ -21,7 +21,7 @@ class pomodoroApp():
         self._bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         self._clockFont = ('Arial', 40)
         self._normalFont = ('Verdana', 10)
-        self._clockColor1 = 'red'
+        self._clockColor1 = 'black'
         self._clockColor2 = 'green'
         self._clockColor3 = 'blue'
         self.work_minutes = 25
@@ -158,7 +158,10 @@ class pomodoroApp():
                     seconds = self.work_seconds % 60
                     self.updateClock(minutes, seconds)
                 else:
-                    PlaySound('SystemExit', SND_ALIAS)
+                    try:
+                        PlaySound('static/alarm.wav', SND_FILENAME)
+                    except:
+                        PlaySound('SystemExit', SND_ALIAS)
                     self.count += 1
                     if self.count % 3 == 0:
                         self.state = 'long_break'
@@ -173,7 +176,10 @@ class pomodoroApp():
                     seconds = self.break_seconds % 60
                     self.updateClock(minutes, seconds)
                 else:
-                    PlaySound('SystemExit', SND_ALIAS)
+                    try:
+                        PlaySound('static/alarm.wav', SND_FILENAME)
+                    except:
+                        PlaySound('SystemExit', SND_ALIAS)
                     self.state = 'working'
                     self.break_seconds = self.break_minutes * 60
 
@@ -184,7 +190,10 @@ class pomodoroApp():
                     seconds = self.long_break_seconds % 60
                     self.updateClock(minutes, seconds)
                 else:
-                    PlaySound('SystemExit', SND_ALIAS)
+                    try:
+                        PlaySound('static/alarm.wav', SND_FILENAME)
+                    except:
+                        PlaySound('SystemExit', SND_ALIAS)
                     self.state = 'working'
                     self.long_break_seconds = self.long_break_minutes * 60
 
