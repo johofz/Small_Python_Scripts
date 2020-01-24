@@ -13,7 +13,10 @@ class pomodoroApp():
         self.w, self.h, self.x0, self.y0 = (600, 150, 50, 50)
         self.parent.geometry(f'{self.w}x{self.h}+{self.x0}+{self.y0}')
         self.parent.resizable(0, 0)
-        self.parent.iconbitmap('static/logo.ico')
+        try:
+            self.parent.iconbitmap('static/logo.ico')
+        except:
+            pass
 
         self._bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         self._clockFont = ('Arial', 40)
