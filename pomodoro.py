@@ -144,9 +144,12 @@ class pomodoroApp():
             if self.first_call:
                 self.work_seconds = self.work_minutes * 60
                 self.break_seconds = self.break_minutes * 60
-                self.first_call = False
+                self.long_break_seconds = self.long_break_minutes * 60
+
                 self.state = 'working'
                 self.count = 0
+                
+                self.first_call = False
 
             if self.state == 'working':
                 if self.work_seconds:
@@ -156,7 +159,11 @@ class pomodoroApp():
                     self.updateClock(minutes, seconds)
                 else:
                     PlaySound('SystemExit', SND_ALIAS)
-                    self.state = 'break'
+                    self.count += 1
+                    if self.count % 3 == 0:
+                        self.state = 'long_break'
+                    else:
+                        self.state = 'break'
                     self.work_seconds = self.work_minutes * 60
 
             elif self.state == 'break':
@@ -168,10 +175,7 @@ class pomodoroApp():
                 else:
                     PlaySound('SystemExit', SND_ALIAS)
                     self.state = 'working'
-                    self.count += 1
                     self.break_seconds = self.break_minutes * 60
-                    if self.count % 3 == 0:
-                        self.state = 'long_break'
 
             else:
                 if self.long_break_seconds:
@@ -179,6 +183,11 @@ class pomodoroApp():
                     minutes = int(self.long_break_seconds / 60)
                     seconds = self.long_break_seconds % 60
                     self.updateClock(minutes, seconds)
+                else:
+                    PlaySound('SystemExit', SND_ALIAS)
+                    self.state = 'working'
+                    self.long_break_seconds = self.long_break_minutes * 60
+
 
             self.parent.after(1000, func=self.timer)
 
