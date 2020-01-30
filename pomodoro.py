@@ -163,7 +163,7 @@ class pomodoroApp():
                     except:
                         PlaySound('SystemExit', SND_ALIAS)
                     self.count += 1
-                    if self.count % 3 == 0:
+                    if self.count % 4 == 0:
                         self.state = 'long_break'
                     else:
                         self.state = 'break'
